@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cp -r /tmp/app/.* /var/www/html/ && \ 
+chown -R www-data:www-data /var/www/html/storage && \
 /usr/local/bin/wait-for-it -h postgres -p 5432 -- /usr/local/bin/php /var/www/html/artisan migrate --seed --force
 
 exec php-fpm -e -F

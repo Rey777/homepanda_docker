@@ -6,7 +6,7 @@ services:
     image: postgres:9.5-alpine
     container_name: postgres
     volumes:
-        - "../database/postgres:/var/lib/postgresql/data/"
+        - "./database/postgres:/var/lib/postgresql/data/"
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
@@ -23,7 +23,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ../app:/var/www/html
+      - ./app_homepanda:/var/www/html:rw
   
   app:
     container_name: app
@@ -33,12 +33,12 @@ services:
       - postgres
     ports:
       - "9000:9000"
+    volumes:
+      - ./app_homepanda:/var/www/html/
   
   exchange:
     container_name: exchange
     build: ./exchange
-    volumes:
-      - ../exchange:/usr/src/app
     command: node server.js
     ports:
       - "9001:9001"
