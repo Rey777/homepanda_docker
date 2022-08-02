@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/usr/local/bin/wait-for-it -h postgres -p 5432 -- /usr/local/bin/php /var/www/html/artisan migrate --seed --force
+
+exec php-fpm -e -F
